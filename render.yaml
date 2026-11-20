@@ -11,4 +11,4 @@ services:
       - key: PYTHON_VERSION
         value: 3.11.9
       - key: ALLOWED_ORIGINS
-        value: "*"
+        value: "https://frontend-coral-rho-swidic9f8h.vercel.app"

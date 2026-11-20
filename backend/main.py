@@ -38,16 +38,28 @@ app = FastAPI(
     version="1.0.0",
 )
 
-# Configuración de CORS dinámica
-cors_env = os.environ.get("ALLOWED_ORIGINS", "*")
-if cors_env.strip() == "*":
-    origins = ["*"]
-else:
-    origins = [orig.strip() for orig in cors_env.split(",") if orig.strip()]
+# Configuración de CORS permitiendo la URL de Vercel y orígenes locales
+VERCEL_PRODUCTION_URL = "https://frontend-coral-rho-swidic9f8h.vercel.app"
+
+origins = [
+    VERCEL_PRODUCTION_URL,
+    "http://localhost:5500",
+    "http://127.0.0.1:5500",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
+cors_env = os.environ.get("ALLOWED_ORIGINS", "")
+if cors_env:
+    for o in cors_env.split(","):
+        o_clean = o.strip()
+        if o_clean and o_clean not in origins:
+            origins.append(o_clean)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=origins if "*" not in origins else ["*"],
+    allow_origin_regex=r"https://.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
