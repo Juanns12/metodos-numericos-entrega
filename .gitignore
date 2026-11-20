@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+venv/
+.venv/
+env/
+ENV/
+
+# Python cache and bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Build outputs
+dist/
+build/
+*.egg-info/
+
+# Deploy & IDE metadata
+.vercel/
+.render/
+.idea/
+.vscode/
+
+# Archives & OS files
+*.zip
+.DS_Store
+Thumbs.db
+desktop.ini
